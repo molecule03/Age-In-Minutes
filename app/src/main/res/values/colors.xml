@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#FFA938</color>
+    <color name="primaryColorDark">#FBA32C</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="textColor">#804446</color>
+    <color name="BgColor">#FEF1E0</color>
+    <color name="ageTextBgColor">#C846DCE0</color>
+    <color name="ageTextColor">#FFFFFF</color>
+    <color name="selectDateBgColor">#FFFFFF</color>
+    <color name="selectDateColor">#929292</color>
+    <color name="lightGreyTextColor">#B7B7B7</color>
+    <color name="outPutColor">#844046</color>
+</resources>
