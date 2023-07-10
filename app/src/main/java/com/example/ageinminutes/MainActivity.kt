@@ -16,87 +16,90 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var btnDatePicker : Button = findViewById(R.id.btnDatePicker)
+        // Find the button with id btnDatePicker
+        val btnDatePicker: Button = findViewById(R.id.btnDatePicker)
 
-        btnDatePicker.setOnClickListener {view->
+        // Set a click listener for the button
+        btnDatePicker.setOnClickListener { view ->
             clickDatePicker(view)
         }
     }
 
-    fun clickDatePicker(view : View){
+    /**
+     * Handles the click event of the date picker button.
+     * @param view The view that was clicked (in this case, the button).
+     */
+    fun clickDatePicker(view: View) {
 
-        val calendar : Calendar = Calendar.getInstance()
-        val currentYear : Int = calendar.get(Calendar.YEAR)
-        val currentMonth : Int = calendar.get(Calendar.MONTH)
-        val currentDay : Int = calendar.get(Calendar.DAY_OF_MONTH)
+        // Get the current calendar instance
+        val calendar: Calendar = Calendar.getInstance()
 
-//        DatePickerDialog is used to Select Dates.. Its Constuctor takes 5 parameters...
-//        That are 1.context(Line no 16),   2.listener(Line no.38 to 75)   3.year(Line no.76)   4. month(Line no.77)   5. day(Line no. 78)
-       val dpd =  DatePickerDialog(this,
-            {
-                    view, selectedYear, selectedMonth, selectedDayOfMonth ->
+        // Get the current year, month, and day
+        val currentYear: Int = calendar.get(Calendar.YEAR)
+        val currentMonth: Int = calendar.get(Calendar.MONTH)
+        val currentDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val theDate : String = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
-                val tvSelectedDate : TextView = findViewById(R.id.tvSelectedDate)
-                tvSelectedDate.setText(theDate)
+        // Create a DatePickerDialog to allow the user to select a date
+        val dpd = DatePickerDialog(
+            this,
+            { view, selectedYear, selectedMonth, selectedDayOfMonth ->
 
-                val sdf : SimpleDateFormat= SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+                // Format the selected date as a string
+                val theDate: String = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
 
-//                Calculated total minutes from 1970 to Selected Date
-                val selectedDate : Date = sdf.parse(theDate)
-                val selectedDateInMinutes : Long = selectedDate!!.time / 60000
+                // Display the selected date in the TextView
+                val tvSelectedDate: TextView = findViewById(R.id.tvSelectedDate)
+                tvSelectedDate.text = theDate
 
-//                Calculated total minutes from 1970 to Current Date
-                val currentDate : Date = sdf.parse(sdf.format(System.currentTimeMillis()))
-                val currentDateInMinutes : Long = currentDate!!.time / 60000
+                // Create a SimpleDateFormat object to parse the date string
+                val sdf: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
 
-//                The Differnce between current and selected will be out age in minutes
-                val ageInMinutes : Long = currentDateInMinutes-selectedDateInMinutes
-                val tvCalculatedAgeInMinutes : TextView = findViewById(R.id.tvCalculatedAgeInMinutes)
-                tvCalculatedAgeInMinutes.setText("$ageInMinutes")
+                // Parse the selected date string into a Date object
+                val selectedDate: Date = sdf.parse(theDate)
 
-                val ageInHours : Long= ageInMinutes/60;
+                // Calculate the total minutes from 1970 to the selected date
+                val selectedDateInMinutes: Long = selectedDate!!.time / 60000
+
+                // Calculate the total minutes from 1970 to the current date
+                val currentDate: Date = sdf.parse(sdf.format(System.currentTimeMillis()))
+                val currentDateInMinutes: Long = currentDate!!.time / 60000
+
+                // Calculate the age in minutes
+                val ageInMinutes: Long = currentDateInMinutes - selectedDateInMinutes
+
+                // Display the calculated age in minutes in the TextView
+                val tvCalculatedAgeInMinutes: TextView = findViewById(R.id.tvCalculatedAgeInMinutes)
+                tvCalculatedAgeInMinutes.text = "$ageInMinutes"
+
+                // Calculate the age in hours
+                val ageInHours: Long = ageInMinutes / 60
                 val tvCalculatedAgeInHours: TextView = findViewById(R.id.tvCalculatedAgeInHours)
-                tvCalculatedAgeInHours.setText("$ageInHours")
+                tvCalculatedAgeInHours.text = "$ageInHours"
 
-                val ageInDays : Long = ageInHours/24;
+                // Calculate the age in days
+                val ageInDays: Long = ageInHours / 24
                 val tvCalculatedAgeInDays: TextView = findViewById(R.id.tvCalculatedAgeInDays)
-                tvCalculatedAgeInDays.setText("$ageInDays")
+                tvCalculatedAgeInDays.text = "$ageInDays"
 
-                val ageInWeeks : Long = ageInDays/7;
+                // Calculate the age in weeks
+                val ageInWeeks: Long = ageInDays / 7
                 val tvCalculatedAgeInWeeks: TextView = findViewById(R.id.tvCalculatedAgeInWeeks)
-                tvCalculatedAgeInWeeks.setText("$ageInWeeks")
+                tvCalculatedAgeInWeeks.text = "$ageInWeeks"
 
-                val ageInMonths : Long = ageInDays/30;
-                val tvCalculatedAgeInMOnths: TextView = findViewById(R.id.tvCalculatedAgeInMonths)
-                tvCalculatedAgeInMOnths.setText("$ageInMonths")
+                // Calculate the age in months
+                val ageInMonths: Long = ageInDays / 30
+                val tvCalculatedAgeInMonths: TextView = findViewById(R.id.tvCalculatedAgeInMonths)
+                tvCalculatedAgeInMonths.text = "$ageInMonths"
 
             },
-           currentYear,
-           currentMonth,
-           currentDay
+            currentYear,
+            currentMonth,
+            currentDay
         )
 
-//        Limiting the calender so no one can select future values
+        // Limit the calendar to prevent selecting future values
         dpd.datePicker.maxDate = Date().time - 86400000
         dpd.show()
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
